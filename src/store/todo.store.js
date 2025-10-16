@@ -12,6 +12,9 @@ const state = {
         new Todo('Aprender Arquitectura limpia'),
         new Todo('Aprender inglés'),
         new Todo('Aprender Sql'),
+        new Todo('Aprender Git'),
+        new Todo('Aprender Clean Code'),
+        new Todo('Aprender Disciplina'),
     ],
     filter: Filter.All, // all, completed, pending  
 }
@@ -31,11 +34,30 @@ const loadStore = () => {
 }
 
 /**
+ * Esta función se encarga de retornar las tareas pendientes según el filtro aplicado
+ * @param {*} filter recibe el filtro a aplicar (all, completed, pending)
+ */
+
+const getTodos = (filter = Filter.All) => {
+    switch (filter) {
+        case Filter.All:
+            return [...state.todos];
+        case Filter.Completed:
+            return state.todos.filter(todo => todo.done);
+        case Filter.Pending:
+            return state.todos.filter(todo => !todo.done);
+        default:
+            throw new Error(`Option ${filter} is not valid`);
+    }
+}
+
+/**
  * Esta función se encarga de guardar el estado en el localStorage
  * @param {String} description recibe la descripción de la nueva tarea pendiente 
  */
 const addTodo = (description) => {
-    throw new Error('Function not implemented.');
+    if (!description) throw new Error('Description is required');
+    state.todos.push(new Todo(description));
 
 }
 
@@ -44,7 +66,12 @@ const addTodo = (description) => {
  * @param {String} todoId recibe el id de la tarea pendiente a modificar
  */
 const toggleTodo = (todoId) => {
-    throw new Error('Function not implemented.');
+    state.todos = state.todos.map(todo => {
+        if(todo.id === todoId) {
+            todo.done = !todo.done;
+        }
+        return todo;
+    });
 
 }
 /**
@@ -52,33 +79,40 @@ const toggleTodo = (todoId) => {
  * @param {String} todoId  recibe el id de la tarea pendiente a eliminar
  */
 const deleteTodo = (todoId) => {
-    throw new Error('Function not implemented.');
+    state.todos = state.todos.filter(todo => todo.id !== todoId);
 
 }
 
 //esta función se encarga de eliminar todas las tareas completadas
 const deleteCompleted = () => {
-    throw new Error('Function not implemented.');
+        state.todos = state.todos.filter(todo => todo.done);
 
 }
 
 /**
  * esta función se encarga de cambiar el filtro de las tareas pendientes
- * @param {Array<String>} newFilter recibe el nuevo filtro a aplicar (all, completed, pending)
+ * @param {Filters} newFilter recibe el nuevo filtro a aplicar (all, completed, pending)
  */
 const setFilter = (newFilter = Filter.All) => {
-    throw new Error('Function not implemented.');
+    //esta validación es para asegurarnos que el filtro que se recibe es válido
+    if(!Object.values(Filter).includes(newFilter)){
+        throw new Error(`Option ${newFilter} is not valid`);
+    }
+    state.filter = newFilter;
 }
 
+//esta función retorna el filtro actual
 const getCurrentFilter = () => {
-    throw new Error('Function not implemented.');
+    return state.filter;
 }
 
 export default {
 
     addTodo,
     deleteCompleted,
+    deleteTodo,
     getCurrentFilter,
+    getTodos,
     initStore,
     loadStore,
     setFilter,
