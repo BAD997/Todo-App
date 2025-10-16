@@ -8,7 +8,7 @@ export const App = (elementId) => {
 
     // Referencia al elemento HTML donde se montará la aplicación
     (()=>{
-        const app = document.createElement('main');
+        const app = document.createElement('div');
         app.innerHTML = html;
         document.querySelector(elementId).append(app);
     })();
