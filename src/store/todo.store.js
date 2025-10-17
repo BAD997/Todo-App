@@ -20,7 +20,7 @@ const state = {
 }
 
 const initStore = () => {
-    console.log(state);
+    loadStore();
     console.log('Init Store 🥑');
 
 }
@@ -29,8 +29,16 @@ const initStore = () => {
  * está función se encarga de guardar el estado en el localStorage
  */
 const loadStore = () => {
-    throw new Error('Function not implemented.');
+   if(!localStorage.getItem('state')) return;
+   const {todos = [], filter = Filters.All} = JSON.parse(localStorage.getItem('state'));
+   state.todos = todos;
+   state.filter = filter;
 
+
+}
+
+const saveStateToLocalStorage = () =>{
+    localStorage.setItem('state',JSON.stringify(state));
 }
 
 /**
@@ -58,6 +66,7 @@ const getTodos = (filter = Filter.All) => {
 const addTodo = (description) => {
     if (!description) throw new Error('Description is required');
     state.todos.push(new Todo(description));
+    saveStateToLocalStorage();
 
 }
 
@@ -72,6 +81,7 @@ const toggleTodo = (todoId) => {
         }
         return todo;
     });
+    saveStateToLocalStorage();
 
 }
 /**
@@ -80,12 +90,14 @@ const toggleTodo = (todoId) => {
  */
 const deleteTodo = (todoId) => {
     state.todos = state.todos.filter(todo => todo.id !== todoId);
+    saveStateToLocalStorage();
 
 }
 
 //esta función se encarga de eliminar todas las tareas completadas
 const deleteCompleted = () => {
         state.todos = state.todos.filter(todo => todo.done);
+        saveStateToLocalStorage();
 
 }
 
@@ -95,15 +107,14 @@ const deleteCompleted = () => {
  */
 const setFilter = (newFilter = Filter.All) => {
     //esta validación es para asegurarnos que el filtro que se recibe es válido
-    if(!Object.values(Filter).includes(newFilter)){
-        throw new Error(`Option ${newFilter} is not valid`);
-    }
     state.filter = newFilter;
+    saveStateToLocalStorage();
 }
 
 //esta función retorna el filtro actual
 const getCurrentFilter = () => {
     return state.filter;
+
 }
 
 export default {
