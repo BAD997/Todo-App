@@ -5,6 +5,7 @@ import { rederTodos } from './use-cases';
 const ElementId = {
     todoList: '.todo-list',
     newTodoInput: '#new-todo-input',
+    clearCompleted: '.clear-completed',
    
 
 }
@@ -33,6 +34,7 @@ export const App = (elementId) => {
     // Referencias HTML
     const newDescriptionInput = document.querySelector(ElementId.newTodoInput);
     const todoListUl = document.querySelector(ElementId.todoList);
+    const btnClearCompleted = document.querySelector(ElementId.clearCompleted);
     
 
     // Listener
@@ -63,9 +65,12 @@ export const App = (elementId) => {
         todoStore.deleteTodo(element.getAttribute('data-id'));
         displayTodos();
 
+    });
 
-
-
+    btnClearCompleted.addEventListener('click', ()=>{
+        
+        todoStore.deleteCompleted();
+        displayTodos();
 
     });
 

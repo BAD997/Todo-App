@@ -96,7 +96,7 @@ const deleteTodo = (todoId) => {
 
 //esta función se encarga de eliminar todas las tareas completadas
 const deleteCompleted = () => {
-        state.todos = state.todos.filter(todo => todo.done);
+        state.todos = state.todos.filter(todo => !todo.done);
         saveStateToLocalStorage();
 
 }
