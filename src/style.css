@@ -302,11 +302,11 @@ body {
 
 .filters li {
 	display: inline;
+	margin-left: -5px;
 	
 }
 
 .filters li a {
-	
 	color: inherit;
 	margin: 3px;
 	padding: 3px 7px;
@@ -325,13 +325,13 @@ body {
 
 .clear-completed,
 html .clear-completed:active {
-	border: 1px solid red;
 	float: right;
 	position: relative;
 	line-height: 20px;
 	text-decoration: none;
 	cursor: pointer;
 	display: block;
+	
 }
 
 .clear-completed:hover {

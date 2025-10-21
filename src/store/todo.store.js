@@ -1,20 +1,20 @@
 import { Todo } from "../todos/models/todo-models";
 
 
-const Filter = {
+ export const Filter = {
     All: 'all',
     Completed: 'completed',
     Pending: 'pending'
 }
 const state = {
     todos: [
-        new Todo('Aprender JavaScript'),
-        new Todo('Aprender Arquitectura limpia'),
-        new Todo('Aprender inglés'),
-        new Todo('Aprender Sql'),
-        new Todo('Aprender Git'),
-        new Todo('Aprender Clean Code'),
-        new Todo('Aprender Disciplina'),
+        // new Todo('Aprender JavaScript'),
+        // new Todo('Aprender Arquitectura limpia'),
+        // new Todo('Aprender inglés'),
+        // new Todo('Aprender Sql'),
+        // new Todo('Aprender Git'),
+        // new Todo('Aprender Clean Code'),
+        // new Todo('Aprender Disciplina'),
     ],
     filter: Filter.All, // all, completed, pending  
 }
