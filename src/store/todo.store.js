@@ -55,7 +55,7 @@ const getTodos = (filter = Filter.All) => {
         case Filter.Pending:
             return state.todos.filter(todo => !todo.done);
         default:
-            throw new Error(`Option ${filter} is not valid`);
+           //throw new Error(`Option ${filter} is not valid`);
     }
 }
 
