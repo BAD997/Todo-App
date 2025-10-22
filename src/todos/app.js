@@ -1,6 +1,6 @@
 import html from './app.html?raw';
 import todoStore, {Filter}  from '../store/todo.store';
-import { rederTodos } from './use-cases';
+import { rederTodos, renderPendingTodos } from './use-cases';
 
 
 const ElementId = {
@@ -8,6 +8,7 @@ const ElementId = {
     newTodoInput: '#new-todo-input',
     clearCompleted: '.clear-completed',
     todoFilters: '.filtro',
+    pendingCountLabel: '#pending-count'
    
 
 }
@@ -21,8 +22,12 @@ export const App = (elementId) => {
     const displayTodos = () => {
         const todos = todoStore.getTodos(todoStore.getCurrentFilter());
         rederTodos(ElementId.todoList, todos);
+        updatePendigCount();
 
+    }
 
+    const updatePendigCount = () => { 
+        renderPendingTodos(ElementId.pendingCountLabel);
     }
 
     // Referencia al elemento HTML donde se montará la aplicación
